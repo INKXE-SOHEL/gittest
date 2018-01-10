@@ -1,0 +1,286 @@
+<html>
+<head>
+	<title>calculator</title>
+	<style type="text/css">
+		.table{
+
+			margin: auto;
+			border-radius: 10px;
+			background-color: black;
+			border: 10px,solid;
+			
+
+
+		}
+		table tr td{
+			border-collapse: collapse;
+		}
+		input{
+			padding:10px;
+			background-color: #D0D3D4  ;
+			width: 40px;
+			text-align: center;
+			color: black
+			
+		}
+	</style>
+</head>
+<body>
+	<div align="center" style="width: 50%">
+	<h1 >calculator</h1>
+	<form name="calc">
+	<table border="1" class="table">
+		<tr><td colspan="5">
+			<input type="text" name="disp" readonly style="width: 100%; text-align: right">
+			</td>
+		</tr>
+		<tr>
+			<td><input type="button" value="7" onclick="addNum('7')" align="center"></td>
+	         <td><input type="button" value="8" onclick="addNum('8')"></td>
+	         <td><input type="button" value="9" onclick="addNum('9')"></td>
+	         <td></td>
+	         <td><input type="button" value="/" onclick="oprtr('/')" style="background-color: #F1948A  ;"></td>
+
+       
+		</tr>
+		<tr>
+			<td><input type="button" value="4" onclick="addNum('4')"></td>
+	         <td><input type="button" value="5" onclick="addNum('5')"></td>
+	         <td><input type="button" value="6" onclick="addNum('6')"></td>
+	         <td></td>
+	         <td><input type="button" value="x" onclick="oprtr('*')" style="background-color: #F1948A  ;"></td>
+
+       
+		</tr>
+		<tr>
+			<td><input type="button" value="1" onclick="addNum('1')"></td>
+	         <td><input type="button" value="2" onclick="addNum('2')"></td>
+	         <td><input type="button" value="3" onclick="addNum('3')"></td>
+	         <td></td>
+	         <td><input type="button" value="-" onclick="oprtr('-')" style="background-color: #F1948A  ;"></td>
+
+       
+		</tr>
+		<tr>
+			<td><input type="button" value="0" onclick="addNum('0')"></td>
+	         <td><input type="button" value="." onclick="addDot('.')"></td>
+			
+	         <td><input type="button" value="C" onclick="addClear()" style="background-color: #F7F9F9    ;"></td>
+	         <td><input type="button" value="=" onclick="calc1()" style="background-color: #F1948A  ;"></td>
+	         <td><input type="button" value="+" onclick="oprtr('+')" style="background-color: #F1948A  ;"></td>
+		
+	</table>
+	</form>
+	</div>
+	<script type="text/javascript">
+	var prev="0",opr=0,n=0,mul="1",propr=0;
+	var curr="0";
+	var count=1;
+	function addNum(num)
+	{
+		
+		/*if(curr.indexOf('.') > -1)
+		
+		{
+			curr=curr+num;
+			curr= parseFloat(curr);
+
+		}
+		else*/
+	
+		curr= (parseInt(curr )*10)+parseInt (num);
+		//curr+=num;
+		//curr=parseInt(num);
+		document.calc.disp.value+=num;
+		
+		
+		//curr="0";
+		
+		//n++;
+		//document.calc.disp.value+=curr;
+	}
+	/*function addDot(num)
+	{
+		if(curr.length == 0)
+			curr= "0.";
+		else{  
+				
+				curr = curr + ".";
+        		//curr=eval(n1);
+    		}   	
+ 			 document.calc.disp.value=curr;
+	}*/
+	function addClear()
+	{
+		
+		document.calc.disp.value="";
+		prev="0";
+		curr="0";
+	}
+	function oprtr(sign)
+	{
+		if(curr=="0")
+		{
+			document.calc.disp.value+="";
+		}
+		else
+		{
+		if(sign.indexOf('+') > -1){ 
+			if(opr==0)
+			{
+				opr=propr=1;
+			}
+			else
+			{
+				propr=opr;
+				opr=1;
+			}
+
+			//prev= parseInt(prev)+parseInt(curr);//used to calculate expression
+			//document.calc.disp.value+=prev;
+			
+			/*if(count == 1)
+			{
+				prev=parseInt(prev)+parseInt(curr);
+				count=2;
+			}
+			else{
+				//prev=parseInt(curr);
+				calc2();
+			}*/
+
+			if(prev=='0')
+			{
+				prev=parseInt(curr);
+				//calc2();
+			}
+			else
+			{
+				//calc1();
+				//prev= parseInt(prev)+parseInt(curr);
+				calc2();
+			}
+			
+		}
+		if(sign.indexOf('-') > -1){ 
+			//var count=0;
+			if(opr==0)
+			{
+				opr=propr=2;
+			}
+			else
+			{
+				propr=opr;
+				opr=2;
+			}
+			
+				if(parseInt(prev) == 0)
+				{
+					prev= parseInt(curr);
+			//	count++;
+				}
+				else
+				{
+					//prev= parseInt(prev)-parseInt(curr);
+					calc2();
+				}
+				//count=2;
+		
+			
+		}
+		if(sign.indexOf('*') > -1){ 
+			if(opr==0)
+			{
+				opr=propr=3;
+			}
+			else
+			{
+				propr=opr;
+				opr=3;
+			}
+
+			
+				if(parseInt(prev) == 0)
+				{
+					prev= parseInt(curr);
+					//calc2();
+			
+				}
+				else
+					calc2();
+			
+			
+		}
+		if(sign.indexOf('/') > -1){ 
+			if(opr==0)
+			{
+				opr=propr=4;
+			}
+			else
+			{
+				propr=opr;
+				opr=4;
+			}
+			if(parseInt(prev) == 0)
+				{
+					prev= parseInt(curr);
+			
+				}
+				else
+					calc2();
+		}
+		
+		document.calc.disp.value+=sign;
+		//prev=curr;
+		curr="0";
+	}
+	}
+	function calc1()
+	{
+		
+		switch (opr)
+		{
+			//case 1 : curr=parseInt (prev,10) + parseInt (curr,10);
+			case 1 : curr=prev + curr;
+			break;
+			case 2 : curr=prev - curr;
+			break;
+			case 3 : curr=prev * curr;
+			break;
+			case 4 : curr=prev / curr;
+			break;
+
+		}
+		//document.calc.disp.value="";
+		document.calc.disp.value=curr;
+		//curr="0";
+		prev="0"; //count=1;
+	}
+	function calc2()
+	{
+		/*if(opr == 1)
+		{
+			curr=eval (prev) + eval (curr);
+		}*/
+		switch (propr)
+		{
+			//case 1 : curr=parseInt (prev,10) + parseInt (curr,10);
+			case 1 : curr=prev + curr;
+			break;
+			case 2 : curr=prev - curr;
+			break;
+			case 3 : curr=prev * curr;
+			break;
+			case 4 : curr=prev / curr;
+			break;
+
+		}
+		//document.calc.disp.value="";
+		document.calc.disp.value=curr;
+		//curr="0";
+		prev=curr; //count=1;
+	}
+</script>
+</body>
+
+</html>
